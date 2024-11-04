@@ -8,13 +8,14 @@ import { Brain, LoaderCircle } from 'lucide-react'
 import { toast } from 'sonner'
 import { AIchatSession } from './../../../../../service/AIModel'
 
-const prompt = "Job Tile: {jobTitle}, Depends on job title give me a summary for my resume within 4-5 lines."
 
+const prompt = "Job Tile: {jobTitle}, Depends on job title give me list of  summery for 3 experience level, Mid Level and Freasher level in 3 -4 lines in array format, With summery and experience_level Field in JSON Format"
 function Summery({enableNext}) {
 
     const {resumeInfo, setResumeInfo} = useContext(ResumeInfoContext);
     const [summery, setSummery] = useState();
     const [loading, setLoading] = useState(false);
+    const [aiGeneratedSummeryList, setAiGeneratedSummaryList] = useState();
     const params= useParams();
     useEffect(()=>{
         summery&&setResumeInfo({
@@ -28,6 +29,7 @@ function Summery({enableNext}) {
         console.log(PROMPT);
         const result = await AIchatSession.sendMessage(PROMPT);
         console.log(result.response.text());
+        setAiGeneratedSummaryList(JSON.parse(result.response.text()));
         setLoading(false);
     }
     const onSave=(e)=>{
@@ -64,7 +66,17 @@ function Summery({enableNext}) {
      
             </div>
         </form>
-      
+      {aiGeneratedSummeryList && <div>
+      <h2 className='font-bold text-lg'>Suggestions</h2>
+      {
+        aiGeneratedSummeryList.map((item, index)=>(
+          <div>
+          <h2 className='font-bold my-1'>Level: {item?.experience_level}</h2>
+          <p>{item?.summary}</p>
+          </div>
+        ))
+      }
+      </div>}
       </div>
   )
 }
