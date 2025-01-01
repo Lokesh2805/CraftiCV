@@ -2,9 +2,13 @@ import { Button } from '@/components/ui/button';
 import { Brain } from 'lucide-react';
 import React, { useState } from 'react'
 import { BtnBold, BtnBulletList, BtnClearFormatting, BtnItalic, BtnLink, BtnNumberedList, BtnRedo, BtnStrikeThrough, BtnStyles, BtnUnderline, BtnUndo, Editor, EditorProvider, HtmlButton, Separator, Toolbar } from 'react-simple-wysiwyg'
-
-function RichTextEditor({onRichTextEditorChange}) {
+const PROMPT = 'position title: {position title}, Depends on position title give me 5-7 bullets points for my experience in resume, give me result in HTML format'
+function RichTextEditor({onRichTextEditorChange, index}) {
     const [value, setValue] = useState();
+    
+    const generateSummaryfromAI = () =>{
+      const prompt = PROMPT.replace('{position title}', )
+    }
   return (
     <div>
     <div className='flex justify-between my-2'>

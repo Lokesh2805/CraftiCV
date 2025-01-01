@@ -54,7 +54,7 @@ function Experience() {
       <div className="p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
         <h2 className="font-bold text-lg">Professional Experience</h2>
         <p>Add your last previous job experience</p>
-        <div>
+        <div key={index}>
           {experienceList.map((item, index) => (
             <div>
               <div className="grid grid-cols-2 gap-3 border p-3 my-5 rounded-lg">
@@ -103,7 +103,7 @@ function Experience() {
                   />
                 </div>
                 <div className="col-span-2">
-                <RichTextEditor onRichTextEditorChange={(event)=>handleRichTextEditor(event, 'workSummery', index)}/>
+                <RichTextEditor index={index} onRichTextEditorChange={(event)=>handleRichTextEditor(event, 'workSummery', index)}/>
                 </div>
               </div>
             </div>
